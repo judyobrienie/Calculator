@@ -21,8 +21,11 @@ public class UserInterface
 
     private JFrame frame;
 	private JTextField display;
+	private JTextField display2;
 	private JLabel status;
 
+	String displayUserInput;
+	
 	/**
 	 * Create a user interface for a given calcEngine.
 	 */
@@ -51,13 +54,25 @@ public class UserInterface
 		frame = new JFrame(calc.getTitle());
 		
 		JPanel contentPane = (JPanel)frame.getContentPane();
-		contentPane.setLayout(new BorderLayout(8, 8));
+		contentPane.setLayout(new BorderLayout(30, 30));
 		contentPane.setBorder(new EmptyBorder( 10, 10, 10, 10));
 
+		
+		/**
+		 * Help from Joe, Adding a container to hold a grid of 2x1
+		 * Container to hold 2 content panes     
+		 */
+		JPanel displayPanel = new JPanel(new GridLayout(2, 1));
+		
 		display = new JTextField();
-		contentPane.add(display, BorderLayout.NORTH);
+		displayPanel.add(display);
 
-		JPanel buttonPanel = new JPanel(new GridLayout(4, 4));
+		display2 = new JTextField();
+		displayPanel.add(display2);
+		
+		contentPane.add(displayPanel, BorderLayout.NORTH);
+		
+		JPanel buttonPanel = new JPanel(new GridLayout(5, 4));
 			addButton(buttonPanel, "7");
 			addButton(buttonPanel, "8");
 			addButton(buttonPanel, "9");
@@ -65,19 +80,24 @@ public class UserInterface
 			addButton(buttonPanel, "4");
 			addButton(buttonPanel, "5");
 			addButton(buttonPanel, "6");
-			addButton(buttonPanel, "*");
+			addButton(buttonPanel, "+");
 			addButton(buttonPanel, "1");
 			addButton(buttonPanel, "2");
 			addButton(buttonPanel, "3");
-			addButton(buttonPanel, "/");
-			addButton(buttonPanel, "0");
-			addButton(buttonPanel, "+");
 			addButton(buttonPanel, "-");
+			addButton(buttonPanel, "0");
+			addButton(buttonPanel, "(");
+			addButton(buttonPanel, ")");
+			addButton(buttonPanel, "*");
+			addButton(buttonPanel, "/");
+			addButton(buttonPanel, ".");
 			addButton(buttonPanel, "=");
 		contentPane.add(buttonPanel, BorderLayout.CENTER);
 
 		status = new JLabel(calc.getAuthor());
 		contentPane.add(status, BorderLayout.SOUTH);
+		
+		
 
 		frame.pack();
 	}
@@ -113,6 +133,8 @@ public class UserInterface
 		{
 			int number = Integer.parseInt(command);
 			calc.numberPressed(number);
+			
+			
 		}
 		else if(command.equals("+"))
 			calc.plus();
@@ -126,7 +148,16 @@ public class UserInterface
 			calc.multiply();
 		else if(command.equals("/"))
 			calc.divide();
-
+		else if(command.equals("("))
+			calc.openBracket();
+		else if(command.equals(")"))
+			calc.closeBracket();
+		else if(command.equals("."))
+			calc.dot();
+		else if(command.equals("^"))
+			calc.powerOf();
+		
+ 
 		redisplay();
 	}
 

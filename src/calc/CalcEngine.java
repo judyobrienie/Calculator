@@ -9,7 +9,8 @@ package calc;
 public class CalcEngine
 {
     char operator;
-    int displayValue, operand1;
+    int displayValue;
+	int operand1;
 
     /**
      * Create a CalcEngine instance. Initialise its state so that it is ready 
@@ -18,7 +19,7 @@ public class CalcEngine
     public CalcEngine()
     {
         operator =' ';
-        displayValue=0;
+        displayValue= 0;
 		operand1 = 0;
     }
 
@@ -37,12 +38,13 @@ public class CalcEngine
      */
     public void numberPressed(int number)
     {
-        displayValue = displayValue *10 + number;
+      
+        displayValue =  number;
     }
 
-    /**
+/**
      * The 'plus' button was pressed. 
-     */
+   */
     public void plus()
     {
        operand1 = displayValue;
@@ -74,6 +76,41 @@ public void divide()
        operator = '/'; 
     }
 
+/**
+ * the power of button was pressed
+ */
+public void powerOf()
+{
+	operand1 = displayValue;
+	displayValue = 0;
+	operator = '^';
+}
+
+public void dot()
+{
+	operand1 = displayValue;
+	displayValue = 0;
+	operator = '.';
+}
+/**
+ * the open bracket button was pressed
+ */
+
+public void openBracket()
+{
+	operand1 = displayValue;
+	displayValue = 0;
+	operator = '(';
+}
+/**
+ * the close bracket button was pressed
+ */
+public void closeBracket()
+{
+	operand1 = displayValue;
+	displayValue = 0;
+	operator = '^';
+}
     /**
      * The '=' button was pressed.
      */
@@ -122,7 +159,7 @@ public void divide()
      */
     public String getAuthor()
     {
-        return("Joe Daly");
+        return("Judy O'Brien");
     }
 
     /**
