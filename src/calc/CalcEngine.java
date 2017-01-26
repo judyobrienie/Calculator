@@ -1,156 +1,208 @@
 package calc;
 
+import java.util.Scanner;
+import java.util.Stack;
+
 /**
  * The main part of the calculator doing the calculations.
  * 
- * @author  M. Kolling 
- * @version 0.1 (incomplete)
+ * @author  Judy O'Brien
+ * @version 1.
  */
 public class CalcEngine
 {
-    char operator;
-    int displayValue;
-	int operand1;
-
-    /**
-     * Create a CalcEngine instance. Initialise its state so that it is ready 
-     * for use.
-     */
-    public CalcEngine()
-    {
-        operator =' ';
-        displayValue= 0;
-		operand1 = 0;
-    }
-
-    /**
-     * Return the value that should currently be displayed on the calculator
-     * display.
-     */
-    public int getDisplayValue()
-    {
-        return(displayValue);
-    }
-
-    /**
-     * A number button was pressed. Do whatever you have to do to handle it.
-     * The number value of the button is given as a parameter.
-     */
-    public void numberPressed(int number)
-    {
-      
-        displayValue =  number;
-    }
-
-/**
-     * The 'plus' button was pressed. 
-   */
-    public void plus()
-    {
-       operand1 = displayValue;
-	   displayValue = 0;
-       operator = '+';
-    }
-    
-    /**
-     * The 'minus' button was pressed.
-     */
-    public void minus()
-    {
-        operand1 = displayValue;
-	   displayValue = 0;
-       operator = '-'; 
-    }
-
-public void multiply()
-    {
-        operand1 = displayValue;
-	   displayValue = 0;
-       operator = '*'; 
-    }
-
-public void divide()
-    {
-        operand1 = displayValue;
-	   displayValue = 0;
-       operator = '/'; 
-    }
-
-/**
- * the power of button was pressed
- */
-public void powerOf()
-{
-	operand1 = displayValue;
-	displayValue = 0;
-	operator = '^';
-}
-
-public void dot()
-{
-	operand1 = displayValue;
-	displayValue = 0;
-	operator = '.';
-}
-/**
- * the open bracket button was pressed
- */
-
-public void openBracket()
-{
-	operand1 = displayValue;
-	displayValue = 0;
-	operator = '(';
-}
-/**
- * the close bracket button was pressed
- */
-public void closeBracket()
-{
-	operand1 = displayValue;
-	displayValue = 0;
-	operator = '^';
-}
-    /**
-     * The '=' button was pressed.
-     */
-    public void equals()
-    {
-        if (operator == '+') {
-			displayValue += operand1;
-			operand1 = 0;
-		}
-	    else if (operator == '-') {
-			displayValue = operand1-displayValue;
-			operand1 = 0;
-		}
-		else if (operator == '*') {
-			displayValue = operand1*displayValue;
-			operand1 = 0;
-		}
-		else if (operator == '/') {
-			displayValue = operand1/displayValue;
-			operand1 = 0;
-		}
-
-    }
+   
+	String displayUserInput = " ";
+  
 
     /**
      * The 'C' (clear) button was pressed.
      */
     public void clear()
     {
-        displayValue = 0;
-		operand1 = 0;
-
+    	displayUserInput = " ";
+    	
     }
 
+    
+    
+  /**  
+   * Algorithm convertToPostfix (infix)
+   * Converts an infix expression to an equivalent postfix expression.
+   * @param string
+   * @return
+   */
+    public String convertPostfix(String string){
+
+  		Stack<Character> operatorStack = new Stack<Character>();
+
+  		StringBuffer postfix = new StringBuffer();
+
+  		Character topOperator;
+  		for(int i = 0; i < string.length(); i++) {
+  			char c = string.charAt(i);
+  				
+  			if(Character.isLetterOrDigit(c))
+  				postfix.append(c + " " );
+  					
+  			else
+  			{
+  				switch(c)
+
+  				{
+  				case '^':
+  					operatorStack.push (c);
+  					break;
+  				case '+':
+  				case '-':
+  				case '*':
+  				case '/':
+  					while (!operatorStack.isEmpty () &&
+  							getPrecedence(c) <= getPrecedence(operatorStack.peek()))
+  					{
+  						postfix.append(operatorStack.peek() + " ");
+  						operatorStack.pop();
+  						
+  					}
+  					operatorStack.push (c);
+  					break;
+
+  				case '(':
+  					operatorStack.push (c);
+  					break;
+
+  				case ')':  // stack is not empty if infix expression is valid
+  					topOperator = operatorStack.pop();
+  					while (topOperator != '(')
+  					{
+  						postfix.append(topOperator + " ");
+  						topOperator = operatorStack.pop();
+  						
+  					}
+  					break;
+  				default:
+  					break;
+  				}
+  			}
+  		}
+  			while (!operatorStack.isEmpty())
+  			{
+  				topOperator = operatorStack.pop();
+  				postfix.append(topOperator + " ");
+  				
+  			}
+  			return postfix.toString();
+
+  		}
+
+  	
+    /**
+     * 
+     */
+    
+    
+    
+    public static int postfixEvaluate(String postfix) {
+	 	Stack<Integer> valueStack = new Stack<Integer> ();
+		
+		Scanner tokens = new Scanner(postfix);
+		
+		while (tokens.hasNext()) {
+			if (tokens.hasNextInt()) {
+				valueStack.push(tokens.nextInt());
+			} else {
+				int operandTwo = valueStack.pop();
+				int operandOne = valueStack.pop();
+				String function = tokens.next();
+				
+				 switch (function)
+				    {
+				        
+				          
+				                case "+":
+				                	valueStack.push(operandOne + operandTwo);
+				                	break;
+				                case "-":
+				                	valueStack.push(operandOne - operandTwo);
+				                	break;
+				                case "*":
+				                	valueStack.push(operandOne * operandTwo);
+				                	break;
+				                case "/":
+				                	valueStack.push(operandOne / operandTwo);
+				                	break;
+				                case "^":
+				                	valueStack.push( (int) Math.pow(operandOne, operandTwo));
+				                
+				                   
+				                default:
+				                    break;
+				    }// end of switch
+				
+				
+			
+			}// end of else
+		}// end of while
+		return valueStack.peek();
+    }
+    
+    
+  	
+  	/**
+  	 * 
+  	 * @param 
+  	 * @return
+  	 */
+  	
+  	
+  	private static int getPrecedence(char operator)
+	{
+		switch (operator)
+		{
+		case '(': case ')': return 0;
+		case '+': case '-': return 1;
+		case '*': case '/': return 2;
+		case '^':           return 3;
+		} // end switch
+
+		return -1;
+		
+	}// end getprecedence
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /**
      * Return the title of this calculation engine.
      */
     public String getTitle()
     {
-        return("My Calculator");
+        return("Judys' Calculator");
     }
 
     /**

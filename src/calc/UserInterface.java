@@ -20,11 +20,12 @@ public class UserInterface
 	private boolean showingAuthor;
 
     private JFrame frame;
-	private JTextField display;
-	private JTextField display2;
+	private JTextField displayInfix;
+	private JTextField displayPostfix;
+	private JTextField displayAnswer;
 	private JLabel status;
 
-	String displayUserInput;
+	
 	
 	/**
 	 * Create a user interface for a given calcEngine.
@@ -62,13 +63,16 @@ public class UserInterface
 		 * Help from Joe, Adding a container to hold a grid of 2x1
 		 * Container to hold 2 content panes     
 		 */
-		JPanel displayPanel = new JPanel(new GridLayout(2, 1));
+		JPanel displayPanel = new JPanel(new GridLayout(3, 1));
 		
-		display = new JTextField();
-		displayPanel.add(display);
+		displayInfix = new JTextField();
+		displayPanel.add(displayInfix);
 
-		display2 = new JTextField();
-		displayPanel.add(display2);
+		displayPostfix = new JTextField();
+		displayPanel.add(displayPostfix);
+		
+		displayAnswer = new JTextField();
+		displayPanel.add(displayAnswer);
 		
 		contentPane.add(displayPanel, BorderLayout.NORTH);
 		
@@ -129,47 +133,58 @@ public class UserInterface
 		   command.equals("6") ||
 		   command.equals("7") ||
 		   command.equals("8") ||
-		   command.equals("9"))
+		   command.equals("9") ||
+		   command.equals("+") ||
+		   command.equals("-") ||
+		   command.equals("*") ||
+		   command.equals("/") ||
+		   command.equals("(") ||
+		   command.equals(")") ||
+		   command.equals("^"))
 		{
-			int number = Integer.parseInt(command);
-			calc.numberPressed(number);
+			
+			 calc.displayUserInput +=  command;
+			//int number = Integer.parseInt(command);
+			//calc.numberPressed(number);
 			
 			
 		}
-		else if(command.equals("+"))
-			calc.plus();
-		else if(command.equals("-"))
-			calc.minus();
-		else if(command.equals("="))
-			calc.equals();
-		else if(command.equals("C"))
-			calc.clear();
-		else if(command.equals("*"))
-			calc.multiply();
-		else if(command.equals("/"))
-			calc.divide();
-		else if(command.equals("("))
-			calc.openBracket();
-		else if(command.equals(")"))
-			calc.closeBracket();
-		else if(command.equals("."))
-			calc.dot();
-		else if(command.equals("^"))
-			calc.powerOf();
 		
- 
-		redisplay();
+		else if(command.equals("="))
+		
+		    displayAnswer.setText("Answer = " + calc.postfixEvaluate(calc.convertPostfix(calc.displayUserInput)));
+			
+		
+		    else if(command.equals("C"))
+			{calc.clear();
+		    clearDisplay();}
+
+		    showDisplay();    
 	}
 
+	
 	/**
 	 * Update the interface display to show the current value of the 
 	 * calculator.
 	 */
-	private void redisplay()
+	private void clearDisplay()
 	{
-		display.setText("" + calc.getDisplayValue());
+		displayInfix.setText("0" );
+		displayAnswer.setText("0");
+		displayPostfix.setText("0");
+		displayPostfix.setText("");
 	}
-
+	/**
+	 * Update the interface display to show the current value of the 
+	 * calculator.
+	 */
+	private void showDisplay()
+	{
+		//display.setText("" + calc.getDisplayValue());
+		displayInfix.setText("Infix = " + calc.displayUserInput);
+		displayPostfix.setText("Postfix = " + calc.convertPostfix(calc.displayUserInput));
+	}
+ 
 	/**
 	 * Toggle the info display in the calculator's status area between the
 	 * author and version information.
