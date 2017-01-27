@@ -98,6 +98,7 @@ public class UserInterface
 			addButton(buttonPanel, "*");
 			addButton(buttonPanel, "/");
 			addButton(buttonPanel, "^");
+			addButton(buttonPanel, ".");
 			addButton(buttonPanel, "=");
 		contentPane.add(buttonPanel, BorderLayout.CENTER);
 
@@ -139,7 +140,7 @@ public class UserInterface
 		   command.equals("7") ||
 		   command.equals("8") ||
 		   command.equals("9") ||
-		  
+		   command.equals(".") ||
 		   command.equals("+") ||
 		   command.equals("-") ||
 		   command.equals("*") ||

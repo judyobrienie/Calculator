@@ -57,6 +57,9 @@ public class CalcEngine
   				case '^':
   					operatorStack.push (c);
   					break;
+  				case '.':
+  					operatorStack.push (c);
+  					break;
   				case '+':
   				case '-':
   				case '*':
@@ -106,17 +109,17 @@ public class CalcEngine
     
     
     
-    public static int postfixEvaluate(String postfix) {
-	 	Stack<Integer> valueStack = new Stack<Integer> ();
+    public static Double postfixEvaluate(String postfix) {
+	 	Stack<Double> valueStack = new Stack<Double> ();
 		
 		Scanner tokens = new Scanner(postfix);
 		
 		while (tokens.hasNext()) {
 			if (tokens.hasNextInt()) {
-				valueStack.push(tokens.nextInt());
+				valueStack.push(tokens.nextDouble());
 			} else {
-				int operandTwo = valueStack.pop();
-				int operandOne = valueStack.pop();
+				double operandTwo = valueStack.pop();
+				double operandOne = valueStack.pop();
 				String function = tokens.next();
 				
 				 switch (function)
@@ -136,8 +139,11 @@ public class CalcEngine
 				                	valueStack.push(operandOne / operandTwo);
 				                	break;
 				                case "^":
-				                	valueStack.push( (int) Math.pow(operandOne, operandTwo));
-				                
+				                	valueStack.push( (double) Math.pow(operandOne, operandTwo));
+				                case ".":
+				                	double temp = operandTwo/10;
+				                	valueStack.push(operandOne = (temp + operandOne));
+				                	break;
 				                   
 				                default:
 				                    break;
@@ -167,6 +173,7 @@ public class CalcEngine
 		case '+': case '-': return 1;
 		case '*': case '/': return 2;
 		case '^':           return 3;
+		case '.':			return 4;
 		} // end switch
 
 		return -1;
