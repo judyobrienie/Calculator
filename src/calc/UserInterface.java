@@ -11,7 +11,8 @@ import javax.swing.border.*;
  * screen. It then refers to the "CalcEngine" to do all the real work.
  * 
  * @author Michael Kolling
- * @version 31 July 2000
+ * @author Amended by Judy O'Brien
+ * @version 1.0
  */
 public class UserInterface
 	implements ActionListener
@@ -57,7 +58,9 @@ public class UserInterface
 		JPanel contentPane = (JPanel)frame.getContentPane();
 		contentPane.setLayout(new BorderLayout(30, 30));
 		contentPane.setBorder(new EmptyBorder( 10, 10, 10, 10));
-
+        
+		//close frame on x
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		/**
 		 * Help from Joe, Adding a container to hold a grid of 2x1
@@ -94,7 +97,7 @@ public class UserInterface
 			addButton(buttonPanel, ")");
 			addButton(buttonPanel, "*");
 			addButton(buttonPanel, "/");
-			addButton(buttonPanel, ".");
+			addButton(buttonPanel, "^");
 			addButton(buttonPanel, "=");
 		contentPane.add(buttonPanel, BorderLayout.CENTER);
 
@@ -123,6 +126,8 @@ public class UserInterface
 	public void actionPerformed(ActionEvent event)
 	{
 		String command = event.getActionCommand();
+		
+		
 
 		if(command.equals("0") ||
 		   command.equals("1") ||
@@ -134,6 +139,7 @@ public class UserInterface
 		   command.equals("7") ||
 		   command.equals("8") ||
 		   command.equals("9") ||
+		  
 		   command.equals("+") ||
 		   command.equals("-") ||
 		   command.equals("*") ||
@@ -143,8 +149,9 @@ public class UserInterface
 		   command.equals("^"))
 		{
 			
-			 calc.displayUserInput +=  command;
-			//int number = Integer.parseInt(command);
+			
+			 
+			calc.displayUserInput +=  command;
 			//calc.numberPressed(number);
 			
 			

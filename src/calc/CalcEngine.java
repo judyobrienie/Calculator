@@ -29,8 +29,8 @@ public class CalcEngine
   /**  
    * Algorithm convertToPostfix (infix)
    * Converts an infix expression to an equivalent postfix expression.
-   * @param string
-   * @return
+   * @param take in string of infix and converts to a string of postfix
+   * @return a string in postfix notation
    */
     public String convertPostfix(String string){
 
@@ -43,8 +43,11 @@ public class CalcEngine
   			char c = string.charAt(i);
   				
   			if(Character.isLetterOrDigit(c))
-  				postfix.append(c + " " );
-  					
+				postfix.append(c);
+  			
+  			// fixing bug to test next character before adding a space
+			    if (i+1 >= string.length() || !Character.isLetterOrDigit(string.charAt(i+1)))
+	                     postfix.append(" ");
   			else
   			{
   				switch(c)
