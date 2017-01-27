@@ -140,6 +140,7 @@ public class CalcEngine
 				                	break;
 				                case "^":
 				                	valueStack.push( (double) Math.pow(operandOne, operandTwo));
+				                	//working on decimal point calculations. also give it a precedence of 4
 				                case ".":
 				                	double temp = operandTwo/10;
 				                	valueStack.push(operandOne = (temp + operandOne));
