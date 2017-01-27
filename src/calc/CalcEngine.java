@@ -50,6 +50,7 @@ public class CalcEngine
 	                     postfix.append(" ");
   			else
   			{
+  				
   				switch(c)
 
   				{
