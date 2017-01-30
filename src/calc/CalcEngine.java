@@ -109,7 +109,7 @@ public class CalcEngine
     
     
     
-    public static Double postfixEvaluate(String postfix) {
+    public  Double postfixEvaluate(String postfix) {
 	 	Stack<Double> valueStack = new Stack<Double> ();
 		
 		Scanner tokens = new Scanner(postfix);
@@ -140,6 +140,7 @@ public class CalcEngine
 				                	break;
 				                case "^":
 				                	valueStack.push( (double) Math.pow(operandOne, operandTwo));
+				                	break;
 				                	//working on decimal point calculations. also give it a precedence of 4
 				                case ".":
 				                	double temp = operandTwo/10;
@@ -173,8 +174,8 @@ public class CalcEngine
 		case '(': case ')': return 0;
 		case '+': case '-': return 1;
 		case '*': case '/': return 2;
-		case '^':           return 3;
-		case '.':			return 4;
+		case '^':			return 3;
+		case '.':           return 4;
 		} // end switch
 
 		return -1;
