@@ -117,6 +117,7 @@ public class CalcEngine
     public  Double postfixEvaluate(String postfix) {
 	 	Stack<Double> valueStack = new Stack<Double> ();
 		
+		@SuppressWarnings("resource")
 		Scanner tokens = new Scanner(postfix);
 		
 		while (tokens.hasNext()) {

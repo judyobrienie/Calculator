@@ -21,12 +21,12 @@ public class testCalcEngine {
 	
 	CalcEngine testEngine = new CalcEngine();
 	
-	String test1 = "1 2 . 2 * ";    // testing decimal points
+	String test1 = "8 3 5 . 1 2 + * +";    // testing decimal points and brackets
 	String test2 = "11 2 3 * + 4 +";   //testing double digits
 	String test3 = "4 2 ^";               // testing power of
 	
 	
-	String test4 = "11+4";
+	String test4 = "8+3.5*(1+2)";
 	String test5 = "1*2";
 	String test6 = "(2*2)+3";            //testing brackets
 	String test7 = "1.2*2";               //testing decimal points
@@ -44,7 +44,7 @@ public class testCalcEngine {
 	public void convertpostfix()
 	{ 
 		String infix = testEngine.convertPostfix(test4);
-		assertEquals("11 4 + ", infix);
+		assertEquals("8 3 5 . 1 2 + * + ", infix);
 		
 		String infix2 = testEngine.convertPostfix(test5);
 		assertEquals ("1 2 * ", infix2);
@@ -72,7 +72,7 @@ public class testCalcEngine {
 	public void testpostfixEvaluate()
 	{ 
 		double evaluate = testEngine.postfixEvaluate(test1);
-		assertEquals (2.4, evaluate ,0);
+		assertEquals (18.5, evaluate ,0);
 		
 		double evaluate2 = testEngine.postfixEvaluate(test2);
 		assertEquals (21, evaluate2 ,0);
