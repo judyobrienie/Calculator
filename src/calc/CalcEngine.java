@@ -42,12 +42,13 @@ public class CalcEngine
   		for(int i = 0; i < string.length(); i++) {
   			char c = string.charAt(i);
   				
-  			if(Character.isLetterOrDigit(c))
+  			if(Character.isLetterOrDigit(c)){
 				postfix.append(c);
   			
   			// fixing bug to test next character before adding a space
 			    if (i+1 >= string.length() || !Character.isLetterOrDigit(string.charAt(i+1)))
 	                     postfix.append(" ");
+  			}
   			else
   			{
   				
@@ -79,14 +80,18 @@ public class CalcEngine
   					break;
 
   				case ')':  // stack is not empty if infix expression is valid
-  					topOperator = operatorStack.pop();
-  					while (topOperator != '(')
-  					{
-  						postfix.append(topOperator + " ");
-  						topOperator = operatorStack.pop();
-  						
-  					}
-  					break;
+					topOperator = operatorStack.pop();
+					while ((topOperator != '(') &&  !operatorStack.isEmpty())
+					{
+						postfix.append(topOperator);
+						postfix.append(" ");
+						topOperator = operatorStack.pop();
+					}// end while
+
+					/* if(!operatorStack.isEmpty() && operatorStack.peek().equals('(')){
+		                 operatorStack.pop(); // pop/remove left parenthesis 
+		             }*/
+					break;
   				default:
   					break;
   				}
