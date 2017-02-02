@@ -6,7 +6,8 @@ package calc;
  * get the calculator on screen.
  * 
  * @author Michael Kolling
- * @version 31 July 2000
+ * @author Amended by Judy O'Brien
+ * @version 1.0
  */
 public class Calculator
 {

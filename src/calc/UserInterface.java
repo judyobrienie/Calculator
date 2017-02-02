@@ -64,7 +64,7 @@ public class UserInterface
 		
 		/**
 		 * Help from Joe, Adding a container to hold a grid of 2x1
-		 * Container to hold 2 content panes     
+		 * Container to hold 3 content panes     
 		 */
 		JPanel displayPanel = new JPanel(new GridLayout(3, 1));
 		
@@ -79,7 +79,7 @@ public class UserInterface
 		
 		contentPane.add(displayPanel, BorderLayout.NORTH);
 		
-		JPanel buttonPanel = new JPanel(new GridLayout(5, 4));
+		JPanel buttonPanel = new JPanel(new GridLayout(6, 4));
 			addButton(buttonPanel, "7");
 			addButton(buttonPanel, "8");
 			addButton(buttonPanel, "9");
@@ -100,6 +100,7 @@ public class UserInterface
 			addButton(buttonPanel, "^");
 			addButton(buttonPanel, ".");
 			addButton(buttonPanel, "=");
+			addButton(buttonPanel, "!");
 		contentPane.add(buttonPanel, BorderLayout.CENTER);
 
 		status = new JLabel(calc.getAuthor());
@@ -147,22 +148,27 @@ public class UserInterface
 		   command.equals("/") ||
 		   command.equals("(") ||
 		   command.equals(")") ||
+		   command.equals("!") ||
 		   command.equals("^"))
 		{
 			
 			
 			 
 			calc.displayUserInput +=  command;
-			//calc.numberPressed(number);
 			
 			
 		}
 		
 		else if(command.equals("="))
+			
+			/*
+			 *@param Converting to posting and putting answer into postfixEvaluate
+			 *@return End result after calculations 
+			 */
 		
 		    displayAnswer.setText("Answer = " + calc.postfixEvaluate(calc.convertPostfix(calc.displayUserInput)));
 			
-		
+		  //clearing screen
 		    else if(command.equals("C"))
 			{calc.clear();
 		    clearDisplay();}

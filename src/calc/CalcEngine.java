@@ -39,22 +39,39 @@ public class CalcEngine
   		StringBuffer postfix = new StringBuffer();
 
   		Character topOperator;
-  		for(int i = 0; i < string.length(); i++) {
-  			char c = string.charAt(i);
-  				
-  			if(Character.isLetterOrDigit(c)){
+		for (int i = 0; i < string.length(); i++) {
+			char c = string.charAt(i);
+
+			if (Character.isDigit(c)) {
 				postfix.append(c);
-  			
-  			// fixing bug to test next character before adding a space
-			    if (i+1 >= string.length() || !Character.isLetterOrDigit(string.charAt(i+1)))
-	                     postfix.append(" ");
+
+				
+
+				// code for negative number *********bugs************
+				
+
+				// fixing bug to test next character before adding a space
+				if (i + 1 >= string.length() || !Character.isDigit(string.charAt(i + 1)))
+					postfix.append(" ");
+
   			}
   			else
   			{
   				
-  				switch(c)
+  				switch(c){
+  				   /////// add a minus to stack without a space
+  					case'!':
+  				    boolean Debug = true;
 
-  				{
+					if (Debug)
+						System.out.println("Bugs");
+
+					postfix.append('-');
+					
+					
+  					break;
+ 
+  					
   				case '^':
   					operatorStack.push (c);
   					break;
@@ -79,7 +96,7 @@ public class CalcEngine
   					operatorStack.push (c);
   					break;
 
-  				case ')':  // stack is not empty if infix expression is valid
+  				case ')':  
 					topOperator = operatorStack.pop();
 					while ((topOperator != '(') &&  !operatorStack.isEmpty())
 					{

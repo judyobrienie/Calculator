@@ -11,7 +11,8 @@ import org.junit.Test;
 import calc.CalcEngine;
 
 /**
- * @author Judy
+ * @author Judy OBrien
+ * @version 1.0
  * Test for CalcEngine Class
  * Method to set up data for testing.
  */
