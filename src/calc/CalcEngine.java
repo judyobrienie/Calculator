@@ -8,6 +8,8 @@ import java.util.Stack;
  * 
  * @author  Judy O'Brien
  * @version 1.
+ * @param string a string of in infix notation
+ * @return a calculated answer
  */
 public class CalcEngine
 {
@@ -48,6 +50,7 @@ public class CalcEngine
 
 
 				// fixing bug to test next character before adding a space
+				// if next character is not a digit add a space
 				if (i + 1 >= string.length() || !Character.isDigit(string.charAt(i + 1)))
 					postfix.append(" ");
 
@@ -110,7 +113,10 @@ public class CalcEngine
   					break;
   				}
   			}
-  		}
+  		}  
+		/*
+		 *  popping off any final operators
+		 */
   			while (!operatorStack.isEmpty())
   			{
   				topOperator = operatorStack.pop();
@@ -122,10 +128,12 @@ public class CalcEngine
   		}
 
   	
-    /**
-     * 
+    /**  
+     * Algorithm  postfixEvaluate(String postfix) 
+     * calculates a postfix expression 
+     * @param take in string of postfix and 
+     * @return a double calculated answer 
      */
-    
     
     
     public  Double postfixEvaluate(String postfix) {
@@ -181,9 +189,9 @@ public class CalcEngine
     
   	
   	/**
-  	 * 
-  	 * @param 
-  	 * @return
+  	 * takes in an operator and order its precedence
+  	 * @param operator 
+  	 * @return the precedence of a certain operator
   	 */
   	
   	

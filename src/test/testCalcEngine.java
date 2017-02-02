@@ -31,6 +31,7 @@ public class testCalcEngine {
 	String test5 = "1*2";
 	String test6 = "(2*2)+3";            //testing brackets
 	String test7 = "1.2*2";               //testing decimal points
+	String test8 = "!33*!33";             //testing minus numbers
 	
 
 
@@ -56,6 +57,9 @@ public class testCalcEngine {
 		String infix4 = testEngine.convertPostfix(test7);
 		assertEquals("1 2 . 2 * ", infix4);
 		
+		String infix5 = testEngine.convertPostfix(test8);
+		assertEquals ("! 33 * ! 33", infix5);
+		
 	}
 	
 	
@@ -80,6 +84,8 @@ public class testCalcEngine {
 		
 		double evaluate3 = testEngine.postfixEvaluate(test3);
 		assertEquals (16, evaluate3 ,0);
+		
+		
 		
 	}
 	
