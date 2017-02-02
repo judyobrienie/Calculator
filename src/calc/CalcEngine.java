@@ -45,10 +45,7 @@ public class CalcEngine
 			if (Character.isDigit(c)) {
 				postfix.append(c);
 
-				
 
-				// code for negative number *********bugs************
-				
 
 				// fixing bug to test next character before adding a space
 				if (i + 1 >= string.length() || !Character.isDigit(string.charAt(i + 1)))
